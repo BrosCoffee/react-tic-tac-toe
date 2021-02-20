@@ -122,7 +122,10 @@ class Game extends Component {
     return (
       <div className="game">
         <div className="game-board">
-          <div className="status">{status}</div>
+          <div className="status">
+            {status}
+            <a className="button" href="./">Next Game</a>
+          </div>
           <Board
             squares = {current.squares}
             onClick = {(i) => this.handleClick(i)}

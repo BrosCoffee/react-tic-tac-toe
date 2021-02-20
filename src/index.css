@@ -53,6 +53,17 @@ ol, ul {
   margin-left: 20px;
 }
 
-.winner {
-  background-color: #0f0;
+.button {
+  text-decoration: none;
+  /*border-style: 1px, solid, black;*/
+  border-style: solid;
+  border-radius: 5px;
+  font-size: 20px;
+  margin: 0 10px 0;
+  padding: 1px 3px;
+  color: #888;
+}
+
+.button:hover {
+  color: #fc6203;
 }
