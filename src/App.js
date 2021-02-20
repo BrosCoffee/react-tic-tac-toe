@@ -19,7 +19,7 @@ const calculateWinner = (squares) => {
     }
   }
   if( !squares.includes(null) ){
-    return 'No Winner'
+    return ['No Winner', null];
   }else{
     return null;
   }
@@ -27,7 +27,14 @@ const calculateWinner = (squares) => {
 
 const Square = (props) => {
   return(
-    <button className="square" onClick={props.onClick} style={{backgroundColor: props.backgroundGreen ? 'green' : 'white',}}>
+    <button
+      className="square"
+      onClick={props.onClick}
+      style={{
+        backgroundColor: props.backgroundGreen ? 'green' : 'white',
+        color: props.value === 'O' ? 'blue': 'black',
+      }}
+    >
       { props.value }
     </button>
   )
