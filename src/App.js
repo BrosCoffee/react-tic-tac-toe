@@ -15,7 +15,7 @@ const calculateWinner = (squares) => {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return [squares[a], [a, b, c]];
     }
   }
   if( !squares.includes(null) ){
@@ -27,7 +27,7 @@ const calculateWinner = (squares) => {
 
 const Square = (props) => {
   return(
-    <button className="square" onClick={props.onClick}>
+    <button className="square" onClick={props.onClick} style={{backgroundColor: props.backgroundGreen ? 'green' : 'white',}}>
       { props.value }
     </button>
   )
@@ -35,10 +35,19 @@ const Square = (props) => {
 
 class Board extends Component {
   renderSquare(i) {
-    return <Square
+    if (this.props.winning_status && this.props.winning_status.includes(i)){
+      return <Square
             value={this.props.squares[i]}
             onClick={() => this.props.onClick(i)}
+            backgroundGreen = {true}
            />;
+    }else{
+      return <Square
+            value={this.props.squares[i]}
+            onClick={() => this.props.onClick(i)}
+            backgroundGreen = {false}
+           />;
+    }
   }
 
   render() {
@@ -96,8 +105,10 @@ class Game extends Component {
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
     let status;
+    let winning_status;
     if(winner){
-      status = 'Winner: ' + winner;
+      status = 'Winner: ' + winner[0];
+      winning_status = winner[1];
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -108,6 +119,7 @@ class Game extends Component {
           <Board
             squares = {current.squares}
             onClick = {(i) => this.handleClick(i)}
+            winning_status = {winning_status}
           />
         </div>
       </div>
